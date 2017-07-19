@@ -34,22 +34,23 @@ public class Sieve {
      * @param results array of ints to print out
      */
     
-    public static void PrintSieve(int[] results) {
+    public static void printSieve(int[] results) {
 
 	// As long as there are elements in the array,
 	// print it.  Otherwise, print "BLANK".
 	
-	if (results.length == 0 || results != null) {
-	    System.out.print("> ");
-	    for (int j = 1; j < results.length;) {
-		System.out.print(results[j] + " ");
-		j++;
-	    }
-	} else {
-	    System.out.print("BLANK");
-	}
+	//if (results.length== 0 || results != null)
+		if (results != null && results.length > 0 ) {
+			System.out.print("> ");
+			for (int j = 1; j < results.length;) {
+				System.out.print(results[j] + " ");
+				j++;
+			}
+		} else {
+			System.out.print("BLANK");
+		}
 
-	System.out.println("");
+		System.out.println("");
 	
     }
 
@@ -83,7 +84,7 @@ public class Sieve {
 	ArrayList<Integer> actual = new ArrayList<Integer>();
 	for (int j = 0; j < results.length; j++) {
 	    if (prime[j]) {
-		actual.add(new Integer(j + 1));
+		actual.add(Integer.valueOf(j + 1));
 	    }
 	}
 
@@ -169,12 +170,20 @@ public class Sieve {
     public static int[] generateSieve(int maxSize) {
 	int size = maxSize;
 	int[] toReturn = new int[maxSize];
-	for (int j = 0; j <= maxSize; j++) {
-	    if (j == 0) {
-		j++;
-	    }
-	    toReturn[j - 1] = j;
+	
+	try{
+		for (int j = 0; j <= maxSize; j++) {
+			if (j == 0) {
+			j++;
+			}
+			toReturn[j - 1] = j;
+		}
+	} catch (NegativeArraySizeException neg) {
+		//negative array
+		toReturn = null;
+		System.out.println("No argument added");
 	}
+	
 	return toReturn;
 	    
     }
@@ -185,19 +194,18 @@ public class Sieve {
      * @return maximum size of array
      */
     public static int calculateMax(String[] args) {
-	int toReturn = -1; // default (invalid) value
-	if (args.length > 0) {
-	    toReturn = (int) Integer.parseInt(args[0]);
-	    if (toReturn < 1) {
-		// User did not enter a valid integer
-		throw new IllegalArgumentException();
-	    } else {
-	}
-	} else {
-	    // User forgot to enter an argument!  
-	    new IllegalArgumentException();
-	}
-	return toReturn;
+		int toReturn = -1; // default (invalid) value
+		if (args.length > 0) {
+			toReturn = (int) Integer.parseInt(args[0]);
+				if (toReturn < 1) {
+				// User did not enter a valid integer
+					throw new IllegalArgumentException();
+				} 			
+			} else {
+				// User forgot to enter an argument!  
+				throw new IllegalArgumentException();
+			}
+			return toReturn;
     }
 	    
     
@@ -233,7 +241,7 @@ public class Sieve {
 	// Calculate sieve and print it out
 	int[] sieve = generateSieve(_max);
 	int[] results = calculateSieve(sieve);
-	PrintSieve(results);
+	printSieve(results);
     }
     
 }
