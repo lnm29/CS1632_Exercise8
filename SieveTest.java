@@ -3,12 +3,6 @@ import org.junit.Assert.*;
 
 public class SieveTest () {
 
-    @Before
-    public void setUp() throws Exception {}
-
-    @After
-    public void tearDown() throws Exception {}
-
     @Test
     public void calcMaxValid() throws Exception {
         String[] length = {"20"};
